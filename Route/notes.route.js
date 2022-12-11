@@ -7,8 +7,14 @@ const notesRouter = express.Router();
 // var jwt = require("jsonwebtoken");
 
 notesRouter.get("/", async (req, res) => {
-  const allnotes = await Notemodel.find();
-  res.send(allnotes);
+  const { userID } = req.body;
+  console.log(userID);
+  try {
+    const allnotes = await Notemodel.find({ userID: userID });
+    res.send(allnotes);
+  } catch (err) {
+    res.send(err.message);
+  }
 });
 
 notesRouter.post("/create", async (req, res) => {
