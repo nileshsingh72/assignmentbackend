@@ -7,7 +7,8 @@ const notesRouter = express.Router();
 // var jwt = require("jsonwebtoken");
 
 notesRouter.get("/", async (req, res) => {
-  const allnotes = await Notemodel.find();
+  const userID = req.body;
+  const allnotes = await Notemodel.find({ userID: userID });
   res.send(allnotes);
 });
 
